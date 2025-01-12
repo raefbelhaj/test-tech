@@ -4,36 +4,27 @@ import java.io.IOException;
 
 public class test {
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\RAEF\\Desktop\\test tech\\document.txt";
+        String filePath = "C:\\\\Users\\\\RAEF\\\\Desktop\\\\test tech\\\\document.txt";
         int totalSum = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
 
             while ((line = br.readLine()) != null) {
-                int firstDigit = -1;
-                int lastDigit = -1;
+                String digits = line.replaceAll("\\D", "");
 
-                for (int i = 0; i < line.length(); i++) {
-                    char ch = line.charAt(i);
-                    if (Character.isDigit(ch)) {
-                        if (firstDigit == -1) {
-                            firstDigit = Character.getNumericValue(ch);
-                        }
-                        lastDigit = Character.getNumericValue(ch);
-                    }
-                }
+                if (digits.length() >= 2) {
+                    int firstDigit = Character.getNumericValue(digits.charAt(0));
+                    int lastDigit = Character.getNumericValue(digits.charAt(digits.length() - 1));
 
-                if (firstDigit != -1 && lastDigit != -1) {
                     int calibrationValue = firstDigit * 10 + lastDigit;
                     totalSum += calibrationValue;
                 }
             }
         } catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-            e.printStackTrace();
         }
 
-        System.out.println("La somme totale des valeurs d étalonnage est : " + totalSum);
+        System.out.println("La somme totale des valeurs d'étalonnage est : " + totalSum);
     }
 }
